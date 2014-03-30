@@ -1,16 +1,16 @@
-[Javascript (Vanilla) Helper functions: miniTPL & loadJSON](http://github.com/internoma/miniTPL)
+[Javascript (Vanilla) Helper functions: miniTPL & loadJSON](http://internoma.github.io/miniTPL/)
 ========================================
 
 A plain and simple helper functions to implement a simple template system based on key value and complement the loadJSON, loading a JSON file via ajax function.
 
-Disponible versión en inglés: [readme english version](http://github.com/internoma/miniTPL/master/readme-en.md)
+Disponible versión en inglés: [readme english version](https://github.com/internoma/miniTPL/blob/master/readme-en.md)
 
 ## Instalación
 *1.*  Clonar el repositorio en la carpeta que desees.
 
     git clone git@github.com:internoma/miniTPL.git
 
-*2.*  Descargar el [.zip](http://github.com/internoma/miniTPL/master) y descomprimirlo en la carpeta elegida.
+*2.*  Descargar el [.zip](https://github.com/internoma/miniTPL/archive/master.zip) y descomprimirlo en la carpeta elegida.
 
 ## Uso
 
