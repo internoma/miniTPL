@@ -15,7 +15,6 @@
 	<!-- CARGA DE ESTILOS CSS -->
 	<link href="http://normalize-css.googlecode.com/svn/trunk/normalize.css" media="all" rel="stylesheet" type="text/css" />
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css" />
-	<link href="http://jmblog.github.io/color-themes-for-google-code-prettify/css/themes/github.css" rel="stylesheet" type="text/css" />
 
 	<style>
 		* {
@@ -53,6 +52,58 @@
 			background-color: #FF5F5A;
 			color: #fff;
 		}
+		#ajax {
+			width: 100%;
+			margin: 4em 0;
+		}
+		#ajax th, #ajax tfoot td {
+			width: 33%;
+			height: 2.5em;
+			background-color: rgba(255,255,255,0.4);
+			color: #FF5F5A;
+		}
+		#ajax tbody td {
+			padding-left: 1em;
+		}
+		#ajax tbody tr:nth-child(even) {
+			background-color: rgba(255,255,255,0.2);
+		}
+
+		th.sort-header {
+		  cursor:pointer;
+		  }
+		th.sort-header::-moz-selection,
+		th.sort-header::selection {
+		  background:transparent;
+		  }
+		table th.sort-header:after {
+		  content:'';
+		  float:right;
+		  margin-top:7px;
+		  margin-right:7px;
+		  border-width:0 8px 8px;
+		  border-style:solid;
+		  border-color:#ffffff transparent;
+		  visibility:hidden;
+		  opacity:0.6;
+		  }
+		table th.sort-header:hover:after {
+		  visibility:visible;
+		  }
+		table th.sort-up:after,
+		table th.sort-down:after,
+		table th.sort-down:hover:after {
+		  visibility:visible;
+		  opacity:0.4;
+		  }
+		table th.sort-up:after {
+		  border-bottom:none;
+		  border-width:8px 8px 0;
+		  }
+		pre {
+		  font-size: 1.15em;
+		  line-height: 1.6em;
+		}
 	</style>
 
 	<!-- Carga de HTML5 shim, para dar soporte a IE6-8 de los elementos HTML5 -->
@@ -60,96 +111,87 @@
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/tablesort/1.6.1/tablesort.min.js"></script>
+
 </head>
 
 <body class="bodyclass" style="">
 
 	<header>
-		<h1 class="otraclase">Javacript <small>loadJSON &amp; MiniTemplate System</small>.</h1>
-		<h3>Exercise use of helpers loadJSON() y miniTPL()...</h3>
+		<h1 class="otraclase">Javacript <small>loadJSON</small>.</h1>
+		<h3>Exercise use of helper loadJSON()...</h3>
 		<div id="parrafo"></div>
 
 	</header>
 	<section>
-	<pre class="prettyprint lang-js linenums">
-	&lt;button onclick=&quot;update();&quot;&gt;update&lt;/button&gt;
-	&lt;button onclick=&quot;update1();&quot;&gt;update1&lt;/button&gt;
-	&lt;button onclick=&quot;initialize();&quot;&gt;initialize&lt;/button&gt;
-	&lt;p&gt;
-		Name: &lt;tpl data-bind=&quot;name&quot;&gt;name&lt;/tpl&gt;
-	&lt;/p&gt;
-	&lt;p&gt;
-		Country: &lt;tpl data-bind=&quot;country&quot;&gt;country&lt;/tpl&gt;
-	&lt;/p&gt;
-	&lt;p&gt;
-		Color: &lt;tpl data-bind=&quot;color&quot;&gt;color&lt;/tpl&gt;
-	&lt;/p&gt;
-	&lt;p&gt;
-		Fruit: &lt;tpl data-bind=&quot;fruit&quot;&gt;fruit&lt;/tpl&gt;
-	&lt;/p&gt;
-	</pre>
-
-	<pre class="prettyprint lang-js linenums">
-&lt;script src=&quot;./js/loadJSON.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;./js/miniTPL.min.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-var update = function() {
-	loadJSON(&apos;./data/data.json&apos;, function(jsonObj) {
-		miniTPL(jsonObj);
-	});
-	miniTPL({&apos;color&apos;:&apos;Red&apos;, &apos;fruit&apos;: &apos;Peach&apos;});
-};
-var update1 = function() {
-	miniTPL({&apos;name&apos;:&apos;Ricardo&apos;,&apos;country&apos;:&apos;France&apos;,&apos;color&apos;:&apos;Green&apos;, &apos;fruit&apos;: &apos;Apple&apos;});
-};
-
-var initialize = function() {
-	miniTPL(&apos;delete&apos;);
-};
-&lt;/script&gt;
-	</pre>
-		<button onclick="update();">update</button>
-		<button onclick="update1();">update1</button>
-		<button onclick="initialize();">initialize</button>
-		<p>
-			Name: <tpl data-bind="name">name</tpl>
-		</p>
-		<p>
-			Country: <tpl data-bind="country">country</tpl>
-		</p>
-		<p>
-			Color: <tpl data-bind="color">color</tpl>
-		</p>
-		<p>
-			Fruit: <tpl data-bind="fruit">fruit</tpl>
-		</p>
-
 	
-	<h3>Helper function miniTPL</h3>
-	<pre class="prettyprint lang-js linenums">
-	/**
-	 * Helper function miniTPL(obj, tag, data)
-	 * @author [29-03-2014 11:38 Alfredo Gonzalez P. <alfredo@internoma.com>]
-	 * @param  {String} obj (name for object)
-	 * @param  {String} tag (template tag target)
-	 * @param  {String} data (data-attribute)
-	 * @example:
-	 *     &lt;tpl data-json="key"&gt;&lt;/tpl&gt;
-	 *     &lt;tpl data-json="key1"&gt;&lt;/tpl&gt;
-	 *
-	 *     miniTPL({'key':'value', 'key1': 'value1'},'tpl','data-json');
-	 * @optional:
-	 *     // initialize/clear all template tags
-	 *     miniTPL('delete');
-	 */
-	function miniTPL(obj, tag, data) {
-	    tag = tag || 'tpl';
-	    data = data || 'data-bind';
-	    // mapear los objetos DOM (perfomance)
-	    var elements = document.getElementsByTagName(tag);
-	    if (obj === 'delete') {
-	        for (var i = 0; i &lt; elements.length; i++) {
+	<h3>Helper function loadJSON</h3>
+
+		<button onclick="update();">update</button>
+		<button onclick="initialize();">reset</button>
+		
+		<table id="ajax">
+			<thead>
+				<tr>
+					<th class="sort-header">Nombre</th>
+					<th class="sort-header">Ciudad</th>
+					<th class="sort-header">País</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
+
+	<pre>
+loadJSON(&apos;./data/data.json&apos;, function(jsonObj) {
+	var content = &apos;&apos;;
+	for (var i = 0; i &lt; jsonObj.length; i++) {
+		content += &apos;&lt;tr&gt;&lt;td&gt;&apos; + jsonObj[i].nombre
+		           + &apos;&lt;/td&gt;&lt;td&gt;&apos; + jsonObj[i].ciudad
+		           + &apos;&lt;/td&gt;&lt;td&gt;&apos; + jsonObj[i].pais 
+		           + &apos;&lt;/td&gt;&lt;/tr&gt;\n&apos;;
+	};
+	document.querySelector(&apos;#ajax tbody&apos;).innerHTML = content;
+}); // end loadJSON
+	</pre>
+	</section>
+	<footer class="text-center">
+		version 1.0.0alpha - 29-03-2014 21:18 - Alfredo Gonzalez P. <alfredo@internoma.com>
+	</footer>
+
+	<script src="./min/loadJSON.min.js"></script>
+	<script>
+
+		new Tablesort(document.getElementById('ajax'));
+
+		var update = function() {
+
+				loadJSON('./data/data1.json', function(jsonObj) {
+					var content = '';
+					for (var i = 0; i < jsonObj.length; i++) {
+						content += '<tr><td>' + jsonObj[i].nombre + '</td><td>' + jsonObj[i].ciudad + '</td><td>' + jsonObj[i].pais + '</td></tr>\n';
+					};
+					document.querySelector('#ajax tbody').innerHTML = content;
+				}); // end loadJSON
+
+			};
+
+		var initialize = function() {
+
+				document.querySelector('#ajax tbody').innerHTML = null;
+
+			};
+	</script>
+</body>
+</html>
 	            elements[i].textContent = null;
 	        }
 	    } else {
