@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="es-ES">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Javascript loadJSON</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="javascript loadJSON">
+	<meta name="keywords" content="javascript">
+	
+	<meta name="author" content="Alfredo González P. (Desarrollador Web Frontend)" />
+
+	<!-- CARGA DE ESTILOS CSS -->
+	<link href="http://normalize-css.googlecode.com/svn/trunk/normalize.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css" />
+	<link href="http://jmblog.github.io/color-themes-for-google-code-prettify/css/themes/github.css" rel="stylesheet" type="text/css" />
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		body {
+			font-family: 'Open Sans', 'Arial', sans-serif;
+			border-radius: 5px;
+			background: #FF5F5A;
+			color: white;
+		}
+		footer {
+			font-size: 0.6em;
+			height: 4em;
+			line-height: 4em;
+		}
+		.text-center {
+			text-align: center;
+		}
+		.bodyclass {
+			margin           : 0 auto;
+			max-width        : 900px;
+		}
+		button {
+			background-color : rgba(255,255,255,0.40);
+			border-radius    : 6px;
+			border           : none;
+			color            : #FF5F5A;
+			cursor           : pointer;
+			font-size        : 1em;
+			padding          : 8px;
+			width: 33%;
+		}
+		button:hover {
+			background-color: #FF5F5A;
+			color: #fff;
+		}
+	</style>
+
+	<!-- Carga de HTML5 shim, para dar soporte a IE6-8 de los elementos HTML5 -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+</head>
+
+<body class="bodyclass" style="">
+
+	<header>
+		<h1 class="otraclase">Javacript <small>loadJSON &amp; MiniTemplate System</small>.</h1>
+		<h3>Exercise use of helpers loadJSON() y miniTPL()...</h3>
+		<div id="parrafo"></div>
+
+	</header>
+	<section>
+	<pre class="prettyprint lang-js linenums">
+	&lt;button onclick=&quot;update();&quot;&gt;update&lt;/button&gt;
+	&lt;button onclick=&quot;update1();&quot;&gt;update1&lt;/button&gt;
+	&lt;button onclick=&quot;initialize();&quot;&gt;initialize&lt;/button&gt;
+	&lt;p&gt;
+		Name: &lt;tpl data-bind=&quot;name&quot;&gt;name&lt;/tpl&gt;
+	&lt;/p&gt;
+	&lt;p&gt;
+		Country: &lt;tpl data-bind=&quot;country&quot;&gt;country&lt;/tpl&gt;
+	&lt;/p&gt;
+	&lt;p&gt;
+		Color: &lt;tpl data-bind=&quot;color&quot;&gt;color&lt;/tpl&gt;
+	&lt;/p&gt;
+	&lt;p&gt;
+		Fruit: &lt;tpl data-bind=&quot;fruit&quot;&gt;fruit&lt;/tpl&gt;
+	&lt;/p&gt;
+	</pre>
+
+	<pre class="prettyprint lang-js linenums">
+&lt;script src=&quot;./js/loadJSON.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./js/miniTPL.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var update = function() {
+	loadJSON(&apos;./data/data.json&apos;, function(jsonObj) {
+		miniTPL(jsonObj);
+	});
+	miniTPL({&apos;color&apos;:&apos;Red&apos;, &apos;fruit&apos;: &apos;Peach&apos;});
+};
+var update1 = function() {
+	miniTPL({&apos;name&apos;:&apos;Ricardo&apos;,&apos;country&apos;:&apos;France&apos;,&apos;color&apos;:&apos;Green&apos;, &apos;fruit&apos;: &apos;Apple&apos;});
+};
+
+var initialize = function() {
+	miniTPL(&apos;delete&apos;);
+};
+&lt;/script&gt;
+	</pre>
+		<button onclick="update();">update</button>
+		<button onclick="update1();">update1</button>
+		<button onclick="initialize();">initialize</button>
+		<p>
+			Name: <tpl data-bind="name">name</tpl>
+		</p>
+		<p>
+			Country: <tpl data-bind="country">country</tpl>
+		</p>
+		<p>
+			Color: <tpl data-bind="color">color</tpl>
+		</p>
+		<p>
+			Fruit: <tpl data-bind="fruit">fruit</tpl>
+		</p>
+
+	
+	<h3>Helper function miniTPL</h3>
+	<pre class="prettyprint lang-js linenums">
+	/**
+	 * Helper function miniTPL(obj, tag, data)
+	 * @author [29-03-2014 11:38 Alfredo Gonzalez P. <alfredo@internoma.com>]
+	 * @param  {String} obj (name for object)
+	 * @param  {String} tag (template tag target)
+	 * @param  {String} data (data-attribute)
+	 * @example:
+	 *     &lt;tpl data-json="key"&gt;&lt;/tpl&gt;
+	 *     &lt;tpl data-json="key1"&gt;&lt;/tpl&gt;
+	 *
+	 *     miniTPL({'key':'value', 'key1': 'value1'},'tpl','data-json');
+	 * @optional:
+	 *     // initialize/clear all template tags
+	 *     miniTPL('delete');
+	 */
+	function miniTPL(obj, tag, data) {
+	    tag = tag || 'tpl';
+	    data = data || 'data-bind';
+	    // mapear los objetos DOM (perfomance)
+	    var elements = document.getElementsByTagName(tag);
+	    if (obj === 'delete') {
+	        for (var i = 0; i &lt; elements.length; i++) {
+	            elements[i].textContent = null;
+	        }
+	    } else {
+	        var dataTemplate;
+	        for (var c = 0; c &lt; elements.length; c++) {
+	            dataTemplate = elements[c].getAttribute(data);
+	            if (obj[dataTemplate]) {
+	                elements[c].textContent = obj[dataTemplate];
+	            }
+	        }
+	    }
+	}
+	</pre>
+
+	<h3>Helper function loadJSON</h3>
+	<pre class="prettyprint lang-js linenums">
+	/**
+	 * Helper function loadJSON(datafile, callback)
+	 * @author [29-03-2014 11:38 Alfredo Gonzalez P. <alfredo@internoma.com>]
+	 * @param  {String} datafile (url/ruta del archivo json)
+	 * @param  {String} función callback
+	 * @example:
+	 *     loadJSON('data/data.json', function(jsonObj) {
+	 *        window.console.log(jsonObj.clave);
+	 *        window.console.log(jsonObj.otraclave);
+	 *     });
+	 */
+	function loadJSON(datafile, callback) {
+	    var data_file = datafile;
+	    var http_request = new window.XMLHttpRequest();
+	    try {
+	        // Opera 8.0+, Firefox, Chrome, Safari
+	        http_request = new window.XMLHttpRequest();
+	    } catch (error) {
+	        // Internet Explorer
+	        try {
+	            http_request = new window.ActiveXObject("Msxml2.XMLHTTP");
+	        } catch (error1) {
+	            try {
+	                http_request = new window.ActiveXObject("Microsoft.XMLHTTP");
+	            } catch (error2) {
+	                // Algo salió mal
+	                window.alert("Su navegador ha fallado!");
+	                return false;
+	            }
+	        }
+	    }
+	    http_request.onreadystatechange = function() {
+	        if (http_request.readyState === 4 &amp;&amp; http_request.status === 200) {
+	            // Javascript function JSON.parse para parsear los datos JSON
+	            var result = JSON.parse(http_request.responseText);
+	            if (callback &amp;&amp; typeof(callback) === "function") {
+	                callback(result);
+	            }
+	        }
+	    };
+	    http_request.open("GET", data_file, true);
+	    http_request.send();
+	} // end loadJSON
+	</pre>
+
+	</section>
+	<footer class="text-center">
+		version 1.0.0alpha - 29-03-2014 21:18 - Alfredo Gonzalez P. <alfredo@internoma.com>
+	</footer>
+
+	<script src="./min/loadJSON.min.js"></script>
+	<script src="./min/miniTPL.min.js"></script>
+	<script>
+		var update = function() {
+				loadJSON('./data/data.json', function(jsonObj) {
+					miniTPL(jsonObj);
+				});
+				miniTPL({'color':'Red', 'fruit': 'Peach'});
+			};
+		var update1 = function() {
+				miniTPL({'name':'Ricardo','country':'France','color':'Green', 'fruit': 'Apple'});
+			};
+
+		var initialize = function() {
+				miniTPL('delete');
+			};
+	</script>
+</body>
+</html>
