@@ -1,0 +1,45 @@
+[{
+    "nombre": "Alfredo",
+    "ciudad": "Madrid",
+    "pais": "España"
+}, {
+    "nombre": "Ricardo",
+    "ciudad": "Paris",
+    "pais": "Francia"
+}, {
+    "nombre": "Santiago",
+    "ciudad": "Roma",
+    "pais": "Italia"
+}, {
+    "nombre": "Ana",
+    "ciudad": "Roma",
+    "pais": "Italia"
+}, {
+    "nombre": "Ramón",
+    "ciudad": "Budapest",
+    "pais": "Hungría"
+}, {
+    "nombre": "Bernardo",
+    "ciudad": "Bucarest",
+    "pais": "Rumanía"
+}, {
+    "nombre": "Ana Belén",
+    "ciudad": "Barcelona",
+    "pais": "España"
+}, {
+    "nombre": "José Ramón",
+    "ciudad": "Sevilla",
+    "pais": "España"
+}, {
+    "nombre": "Alicia",
+    "ciudad": "Londres",
+    "pais": "Inglaterra"
+}, {
+    "nombre": "María Jesús",
+    "ciudad": "Hamsterdam",
+    "pais": "Holanda"
+}, {
+    "nombre": "César",
+    "ciudad": "Londres",
+    "pais": "Inglaterra"
+}]
