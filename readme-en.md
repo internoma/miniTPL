@@ -16,6 +16,10 @@ Create un webserver for evaluation (OSX).
 
 	$ python -m SimpleHTTPServer 8000
 
+As of PHP PHP 5.4.0
+
+	$ php -S localhost:8000
+
 Of course you can also use apache , nginx and others servers.
 
 ## License

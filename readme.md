@@ -18,6 +18,10 @@ Crear un webserver para evaluación (OSX).
 
 	$ python -m SimpleHTTPServer 8000
 
+o también con desde PHP 5.4.0
+
+	$ php -S localhost:8000
+
 Por supuesto también puedes utilizar apache , nginx y otros servidores.
 
 ## Licencia
